@@ -32,7 +32,7 @@ const browserifyTask = function (options) {
     entries: [options.src],
     transform: [
       ['babelify', {
-        presets: ['es2015', 'stage-1'],
+        presets: ['@babel/preset-env'],
         plugins: ['transform-class-properties'],
       }],
     ],
@@ -102,11 +102,6 @@ const cssTask = function (options) {
     }));
 };
 
-gulp.task('ghpages', ['deploy'], () => {
-  return gulp.src('./build/**/*')
-    .pipe(ghPages());
-});
-
 gulp.task('deploy', () => {
   process.env.NODE_ENV = 'production';
 
@@ -137,6 +132,11 @@ gulp.task('deploy', () => {
     cssTask(cssOpt)
   );
 });
+
+// gulp.task('ghpages', ['deploy'], () => {
+//   return gulp.src('./build/**/*')
+//     .pipe(ghPages());
+// });
 
 gulp.task('default', () => {
   process.env.NODE_ENV = 'development';
